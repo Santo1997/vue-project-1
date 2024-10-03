@@ -9,7 +9,7 @@ const state = reactive({
 
 onMounted(async () => {
   try {
-    const response = await axios.get("/api/getJobs", {
+    const response = await axios.get("/api/getData", {
       headers: JSON.parse(import.meta.env.VITE_HEADERS),
     });
 

@@ -11,7 +11,7 @@ const state = reactive({
 
 onMounted(async () => {
   try {
-    const response = await axios.get(`/api/jobs/${jobId}`, {
+    const response = await axios.get(`/api/data/${jobId}`, {
       headers: JSON.parse(import.meta.env.VITE_HEADERS),
     });
 
@@ -82,11 +82,11 @@ onMounted(async () => {
           </div>
           <div class="bg-white p-6 rounded-lg shadow-md mt-6">
             <h3 class="text-xl font-bold mb-6">Manage Job</h3>
-            <a
-              href="add-job.html"
+            <RouterLink
+              :to="`/update-job/${state.job?._id}`"
               class="bg-green-500 hover:bg-green-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block">
               Edit Job
-            </a>
+            </RouterLink>
             <button class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block">Delete Job</button>
           </div>
         </aside>
