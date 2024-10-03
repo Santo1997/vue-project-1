@@ -2,7 +2,9 @@
 import {ref} from "vue";
 import axios from "axios";
 import {toast} from "vue3-toastify";
+import {useRouter} from "vue-router";
 
+const router = useRouter();
 const form = ref({
   type: "Full-Time",
   title: "",
@@ -25,6 +27,9 @@ const handleAddJob = () => {
     .then((response) => {
       if (response.data.insertedId) {
         toast.success("Job added successfully");
+        setTimeout(() => {
+          router.push(`/jobs`);
+        }, 1000);
       }
     })
     .catch((error) => {

@@ -2,8 +2,9 @@
 import {ref, onMounted} from "vue";
 import axios from "axios";
 import {toast} from "vue3-toastify";
-import {useRoute} from "vue-router";
+import {useRouter, useRoute} from "vue-router";
 
+const router = useRouter();
 const jobId = useRoute().params.jobId;
 const form = ref({
   type: "",
@@ -41,6 +42,9 @@ const handleUpdateJob = () => {
     .then((response) => {
       if (response.data.modifiedCount == 1) {
         toast.success("Job updated successfully");
+        setTimeout(() => {
+          router.push(`/job-details/${jobId}`);
+        }, 1000);
       }
     })
     .catch((error) => {
@@ -120,7 +124,7 @@ const handleUpdateJob = () => {
 
           <div>
             <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline" type="submit">
-              Add Job
+              Update Job
             </button>
           </div>
         </form>
