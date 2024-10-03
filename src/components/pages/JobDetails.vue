@@ -31,7 +31,6 @@ const handleDeleteJob = () => {
       headers: JSON.parse(import.meta.env.VITE_HEADERS),
     })
     .then((response) => {
-      console.log(response.data);
       if (response.data.deletedCount == 1) {
         toast.success("Job deleted successfully");
         setTimeout(() => {

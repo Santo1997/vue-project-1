@@ -1,10 +1,11 @@
 <script setup>
 import axios from "axios";
-import {onMounted, reactive} from "vue";
+import {onMounted, reactive, computed} from "vue";
 
 const state = reactive({
   jobs: [],
   isLoading: true,
+  searchQuery: "",
 });
 
 onMounted(async () => {
@@ -20,13 +21,21 @@ onMounted(async () => {
     state.isLoading = false;
   }
 });
+
+const filteredJobs = computed(() => {
+  return state.jobs.filter((job) => job.title.toLowerCase().includes(state.searchQuery.toLowerCase()));
+});
 </script>
 
 <template>
   <section class="bg-green-50 py-4">
     <div class="container mx-auto px-4">
       <div class="relative">
-        <input type="text" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-green-500" placeholder="Filter jobs..." />
+        <input
+          v-model="state.searchQuery"
+          type="text"
+          class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-green-500"
+          placeholder="Filter jobs..." />
       </div>
     </div>
   </section>
@@ -54,7 +63,7 @@ onMounted(async () => {
           </div>
         </div>
 
-        <div v-show="!state.isLoading" v-for="job in state.jobs" :key="job._id" class="bg-white rounded-xl shadow-md relative">
+        <div v-show="!state.isLoading" v-for="job in filteredJobs" :key="job._id" class="bg-white rounded-xl shadow-md relative">
           <div class="p-4">
             <div class="mb-6">
               <div class="text-gray-600 my-2">{{ job.type }}</div>
